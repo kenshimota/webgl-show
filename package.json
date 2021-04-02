@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "WebGl library",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "node test/index.js"
   },
