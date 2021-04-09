@@ -8,5 +8,8 @@
     "test": "node test/index.js"
   },
   "author": "Erik Mota Galindo",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "three": "^0.127.0"
+  }
 }
