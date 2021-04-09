@@ -45,7 +45,7 @@ export const Figure = ({ setId, id }) => ({
     this.name = geometry;
 
     // agregando la posiciones que necesita la figura determinada
-    if (!positions == false) figure.setPosition(positions);
+    if (!positions == false) this.setPosition(positions);
   },
 
   // esta funcion se encarga de permite
