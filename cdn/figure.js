@@ -1,5 +1,3 @@
-import * as THREE from 'three';
-
 /* figura determinada */
 export const Figure = ({ setId, id }) => ({
   id,

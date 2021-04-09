@@ -1,4 +1,4 @@
-import WebGl from '../../src/gl.js';
+import WebGl from '../../cdn/index.js';
 
 /* funcion que se encarga del cilindro */
 const figureCylinder = function (radius, height) {
@@ -53,8 +53,6 @@ const figureCube = function () {
 
   graph.setLight({ intensity: 0.4, color: 0xffffff, position: { x: -3, y: -5, z: 20 } });
   graph.addFigure(cube);
-
-  console.log(graph);
 };
 
 export const app = function () {

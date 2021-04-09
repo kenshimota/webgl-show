@@ -1,4 +1,3 @@
-import * as THREE from 'three';
 import { loadFont } from './loadFont.js';
 import Figure from './figure.js';
 

@@ -1,11 +1,10 @@
-import WebGl from '../../src/gl.js';
-import { app } from "./geomtry.js";
+import WebGl from '../../cdn/index.js';
+import { app } from './geomtry.js';
 
 app();
 
 /* funcion del programa */
 const main = function () {
-
   // creando graficos en blanco
   const graph = WebGl({
     element: '#test1',
@@ -14,8 +13,8 @@ const main = function () {
     color: 0x444444,
   });
 
-  const orbitSun = graph.createFigure({ geometry: 'Object3D', positions: {z: 5} });
-  graph.addFigure( orbitSun );
+  const orbitSun = graph.createFigure({ geometry: 'Object3D', positions: { z: 5 } });
+  graph.addFigure(orbitSun);
 
   // creando el sol  como figura
   const sun = graph.createFigure({
@@ -24,53 +23,53 @@ const main = function () {
     attributes: [1, 20, 20],
   });
   sun.setScale({ x: 3, y: 3, z: 3 });
-  orbitSun.add( sun );
+  orbitSun.add(sun);
 
   const orbitEarth = graph.createFigure({ geometry: 'Object3D', positions: { x: 7 } });
-  orbitSun.add( orbitEarth );
+  orbitSun.add(orbitEarth);
   const earth = graph.createFigure({
     geometry: 'SphereGeometry',
     material: { emissive: 'blue' },
     attributes: [0.8, 20, 20],
   });
   earth.setScale(0.6, 0.8, 0.8);
-  orbitEarth.add( earth );
+  orbitEarth.add(earth);
 
-  const orbitMoon = graph.createFigure({ geometry: 'Object3D', positions: {x: 1.5} });
-  orbitEarth.add( orbitMoon );
+  const orbitMoon = graph.createFigure({ geometry: 'Object3D', positions: { x: 1.5 } });
+  orbitEarth.add(orbitMoon);
   const moon = graph.createFigure({
     geometry: 'SphereGeometry',
     material: { emissive: 0x666666 },
     attributes: [0.2, 20, 20],
   });
   moon.setScale(0.5, 0.5, 0.5);
-  orbitMoon.add(  moon );
+  orbitMoon.add(moon);
 
-  const orbitMart = graph.createFigure({ geometry: "Object3D", positions: {z: 5} });
-  graph.addFigure( orbitMart );
+  const orbitMart = graph.createFigure({ geometry: 'Object3D', positions: { z: 5 } });
+  graph.addFigure(orbitMart);
 
   const mart = graph.createFigure({
-    geometry: "SphereGeometry",
-    material: {color: "red"},
+    geometry: 'SphereGeometry',
+    material: { color: 'red' },
     attributes: [1, 20, 20],
-    positions: {x: 13}
+    positions: { x: 13 },
   });
-  orbitMart.add( mart );
+  orbitMart.add(mart);
 
-  mart.animation = function(){
+  mart.animation = function () {
     this.figure.rotation.y += 0.01;
   };
 
-  orbitMart.animation = function(){
+  orbitMart.animation = function () {
     this.figure.rotation.y += 0.009;
-  }
+  };
 
-  const orbitAnimation = function(){
+  const orbitAnimation = function () {
     this.figure.rotation.y += this.id / 100;
   };
 
   // agregando iluminacion al efecto en 3D
-  graph.setLight({intensity: 1, color: 0xffffff, position: {x: 1, y: 2, z: 1}});
+  graph.setLight({ intensity: 1, color: 0xffffff, position: { x: 1, y: 2, z: 1 } });
   sun.animation = orbitAnimation;
   earth.animation = orbitAnimation;
   moon.animation = orbitAnimation;
@@ -82,9 +81,6 @@ const main = function () {
   graph.camera.up.set(0, 0, 1);
   graph.camera.lookAt(0, 0, 0);
 };
-
-
-
 
 /*const Points = function () {
   const graph = WebGl({ element: '#test1', width: 400, height: 200 });

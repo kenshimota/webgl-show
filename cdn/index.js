@@ -62,17 +62,18 @@ export const Gl = ({ element, width, height, color }) => {
     const scene = new THREE.Scene();
     if (!color == false) scene.background = new THREE.Color(color);
 
+    // get DOM element
+    if (typeof element == 'string') element = document.querySelector(element);
+
     // check if element is a element type html
     if (!element) throw 'the element html not defined';
-    else if (typeof element == 'string') element = document.querySelector(element);
 
     // ajustado la escena si es necesario
-    if(  element.clientWidth  < width  ){
+    if (element.clientWidth < width) {
       let wh = width / height;
       width = element.clientWidth;
       height = width * wh;
     }
-
 
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();

@@ -1,5 +1,3 @@
-import * as THREE from 'three';
-
 // funcion que se encarga de cargar
 export const loader = new THREE.FontLoader();
 

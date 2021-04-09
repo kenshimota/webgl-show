@@ -2,8 +2,12 @@
   "name": "webgl-show",
   "version": "0.0.1",
   "description": "WebGl library",
-  "main": "index.js",
+  "main": "src/index.js",
   "type": "module",
+  "files": [
+    "cdn",
+    "src"
+  ],
   "scripts": {
     "test": "node test/index.js"
   },

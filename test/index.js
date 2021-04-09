@@ -27,7 +27,7 @@ const server = http.createServer(function (req, response) {
   const { pathname, query } = url.parse(req.url);
   const folderSplit = pathname.split('/');
   let filePath = '';
-  if (folderSplit.length > 1 && folderSplit[1].toLowerCase() == 'src')
+  if (folderSplit.length > 1 && folderSplit[1].toLowerCase() == 'cdn')
     filePath = `${__dirname}/..${pathname}`;
   else
     filePath = pathname == '/' ? `${__dirname}/views/index.htm` : `${__dirname}/views${pathname}`;
