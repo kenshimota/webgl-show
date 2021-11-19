@@ -29,7 +29,7 @@ const animateRenderers = function (time) {
     for (let i in graphicsCreated) {
       let graph = graphicsCreated[i];
       if (graph.multipleRender || graph.renders == 0) {
-        graph.stats.begin();
+        if(graph.stats) graph.stats.begin();
         let figures = graph._figures;
         graph.renders += 1;
 
@@ -40,7 +40,7 @@ const animateRenderers = function (time) {
         // renderizacion del grafico determinado
         graph.camera.position.z = 5;
         graph.render();
-        graph.stats.end();
+        if(graph.stats) graph.stats.end();
       }
     }
 
