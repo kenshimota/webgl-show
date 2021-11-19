@@ -27,8 +27,15 @@ const server = http.createServer(function (req, response) {
   const { pathname, query } = url.parse(req.url);
   const folderSplit = pathname.split('/');
   let filePath = '';
+
   if (folderSplit.length > 1 && folderSplit[1].toLowerCase() == 'cdn')
     filePath = `${__dirname}/..${pathname}`;
+  else if(folderSplit.length > 1 && folderSplit[1].toLocaleLowerCase() == 'npm' ){
+    const path = pathname.slice(5);
+    const content = require(path);
+    console.log(content);
+    getFilePath({  filePath: path, status: 200, content, response  });
+  }
   else
     filePath = pathname == '/' ? `${__dirname}/views/index.htm` : `${__dirname}/views${pathname}`;
 

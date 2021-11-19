@@ -14,6 +14,7 @@
   "author": "Erik Mota Galindo",
   "license": "ISC",
   "dependencies": {
+    "stats-js": "^1.0.1",
     "three": "^0.127.0"
   }
 }

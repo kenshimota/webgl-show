@@ -29,6 +29,7 @@ const animateRenderers = function (time) {
     for (let i in graphicsCreated) {
       let graph = graphicsCreated[i];
       if (graph.multipleRender || graph.renders == 0) {
+        graph.stats.begin();
         let figures = graph._figures;
         graph.renders += 1;
 
@@ -39,6 +40,7 @@ const animateRenderers = function (time) {
         // renderizacion del grafico determinado
         graph.camera.position.z = 5;
         graph.render();
+        graph.stats.end();
       }
     }
 
@@ -49,7 +51,7 @@ const animateRenderers = function (time) {
 };
 
 /* Componente principal del Gl */
-export const Gl = ({ element, width, height, color }) => {
+export const Gl = ({ element, width, height, color, logs = false }) => {
   try {
     let canvas = document.createElement('canvas');
     let orbit = null;
@@ -83,6 +85,15 @@ export const Gl = ({ element, width, height, color }) => {
     let gl = WebGl({ scene, camera, element, renderer, orbit }); // devolviendo el cumplimineto del canvas
     numberGraphics += 1;
     graphicsCreated[numberGraphics] = gl;
+    
+    
+    if(logs == true){
+      const stats = new Stats();
+      stats.showPanel(1);
+      element.appendChild( stats.dom );
+      gl.stats = stats;
+    }
+    
     return gl;
   } catch (error) {
     throw new Error(error);

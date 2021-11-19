@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import Stats from "stats-js"
 
 // importando la figura
 import Figure from './figure.js';
@@ -51,7 +52,7 @@ const animateRenderers = function (time) {
 };
 
 /* Componente principal del Gl */
-export const Gl = ({ element, width, height, color }) => {
+export const Gl = ({ element, width, height, color, logs = false }) => {
   try {
     let canvas = document.createElement('canvas');
     let orbit = null;
@@ -85,6 +86,14 @@ export const Gl = ({ element, width, height, color }) => {
     let gl = WebGl({ scene, camera, element, renderer, orbit }); // devolviendo el cumplimineto del canvas
     numberGraphics += 1;
     graphicsCreated[numberGraphics] = gl;
+
+    if(logs == true){
+      const stats = new Stats();
+      stats.showPanel(1);
+      element.appendChild( stats.dom );
+      gl.stats = stats;
+    }
+
     return gl;
   } catch (error) {
     throw new Error(error);

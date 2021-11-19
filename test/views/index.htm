@@ -4,50 +4,10 @@
       name="viewport"
       content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-
-    <script type="text/javascript">
-      function editCylinder(diameter, height) {
-        if (!diameter && window.diameter1 != null) diameter = window.diameter1;
-        if (!height && window.height1) height = window.height1;
-
-        // solo si los 2 datos estan
-        if (height && diameter) window.cylinderSet(diameter, height);
-
-        window.height1 = height;
-        window.diameter1 = diameter;
-
-        console.log({ height, diameter });
-      }
-    </script>
     <title>Pagina Home</title>
   </head>
   <body>
-    <!-- Cilindro -->
-    <div>
-      <div>
-        <label>Diametro</label>
-        <input type="text" placeholder="2cm" onchange="editCylinder(this.value, null)" />
-      </div>
-      <div>
-        <label>Altura</label>
-        <input type="text" placeholder="20cm" onchange="editCylinder(null, this.value)" />
-      </div>
-
-      <div id="cylinder-test" style="width: 100%; max-width: 500px; margin: 5px auto"></div>
-    </div>
-
-    <!-- Cubo -->
-    <div>
-      <div></div>
-      <div id="box-test" style="width: 100%; max-width: 500px; margin: 5px auto"></div>
-    </div>
-
-    <div id="test1" style="width: 100%; max-width: 500px; margin: 5px auto"></div>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r127/three.min.js"
-      integrity="sha512-U4J4PbEJ2TMjFqPUSiKq7LLTHuEkPZVo0jl2fomi9pT7UAExh4xVi8KmoR7EfmyigH95aA68zpW7y3XzuoSurQ=="
-      crossorigin="anonymous"
-    ></script>
-    <script type="module" src="./app.js"></script>
+    <div id = "name"></div>
+    <script type = "module" src = "./scripts.js"></script>
   </body>
 </html>
