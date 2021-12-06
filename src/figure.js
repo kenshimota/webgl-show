@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
 /* figura determinada */
 export const Figure = ({ setId, id }) => ({
@@ -7,6 +7,43 @@ export const Figure = ({ setId, id }) => ({
   figure: null,
   animation: null, // evento que se ejecuta para la animacion de la figura
   paramsCreation: {},
+
+  // funcion que me permite carga un objeto obj
+  loader: async function () {
+    const loader = new OBJLoader();
+    const { src, material } = params;
+    const asyncFunc = new Promise((resolve, reject) =>
+      loader.load(
+        src,
+        resolve,
+        (xhr) => console.log((xhr.loaded / xhr.total) * 100 + "% loaded"),
+        reject
+      )
+    );
+
+    let figure = await asyncFunc()
+      .then((t) => t)
+      .catch((error) => {
+        throw error;
+      });
+
+    if (!material == false && figure) {
+      let type = material.type;
+      delete material.type;
+      switch (type) {
+        case "basic":
+          material = new THREE.MeshBasicMaterial(material);
+          break;
+        default:
+          material = new THREE.MeshPhongMaterial(material);
+          break;
+      }
+
+      figure = new THREE.Mesh(figure, material);
+    }
+
+    return figure;
+  },
 
   // inicializa la figura
   init: function (params) {
@@ -20,14 +57,16 @@ export const Figure = ({ setId, id }) => ({
       figure = new THREE.BufferGeometry().setFromPoints(points);
     }
 
-    if (geometry != 'Line')
-      figure = attributes ? new THREE[geometry](...attributes) : new THREE[geometry]();
+    if (geometry != "Line")
+      figure = attributes
+        ? new THREE[geometry](...attributes)
+        : new THREE[geometry]();
 
-    if (!material == false && geometry != 'Line') {
+    if (!material == false && geometry != "Line") {
       let type = material.type;
       delete material.type;
       switch (type) {
-        case 'basic':
+        case "basic":
           material = new THREE.MeshBasicMaterial(material);
           break;
         default:
@@ -36,7 +75,7 @@ export const Figure = ({ setId, id }) => ({
       }
 
       figure = new THREE.Mesh(figure, material);
-    } else if (geometry == 'Line') {
+    } else if (geometry == "Line") {
       material = new THREE.LineBasicMaterial(material);
       figure = new THREE.Line(figure, material);
     }
@@ -60,8 +99,15 @@ export const Figure = ({ setId, id }) => ({
   setAttributes: function (attributes) {
     let geometry = null;
     this.figure.geometry.dispose();
-    if (this.name != 'Line')
-      geometry = attributes ? new THREE[this.name](...attributes) : new THREE[this.name]();
+    if (this.name != "Line")
+      geometry = attributes
+        ? new THREE[this.name](...attributes)
+        : new THREE[this.name]();
+    else if (geometry == "Line") {
+      material = new THREE.LineBasicMaterial(this.material);
+      figure = new THREE.Line(figure, this.material);
+    }
+
     this.figure.geometry = geometry;
   },
 
@@ -76,8 +122,17 @@ export const Figure = ({ setId, id }) => ({
   },
 
   // agregando un hijo
-  add: function (resource) {
-    this.figure.add(resource.figure);
+  add: async function (resource) {
+    let response = resource && resource.figure;
+    if (response && response.then)
+      response = await resource
+        .then((t) => t)
+        .catch((error) => {
+          throw error;
+        });
+
+    this.figure.add(response);
+    resource.figure = response;
     setId(resource.id, resource);
   },
 });

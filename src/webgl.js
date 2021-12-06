@@ -1,6 +1,7 @@
-import * as THREE from 'three';
-import { loadFont } from './loadFont.js';
-import Figure from './figure.js';
+import * as THREE from "three";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
+import { loadFont } from "./loadFont.js";
+import Figure from "./figure.js";
 
 /* componente WebGl */
 export const WebGl = ({ renderer, scene, element, camera, orbit }) => ({
@@ -31,7 +32,8 @@ export const WebGl = ({ renderer, scene, element, camera, orbit }) => ({
   // la animacion de cada figura de forma idenpendide
   setId: function (id, figure) {
     try {
-      if (this._figures[id]) throw `you cant'n repeat a identity the figure (${id})`;
+      if (this._figures[id])
+        throw `you cant'n repeat a identity the figure (${id})`;
       this._figures[id] = figure;
     } catch (error) {
       throw new Error(error);
@@ -42,7 +44,7 @@ export const WebGl = ({ renderer, scene, element, camera, orbit }) => ({
   // figura determinada a la escena determinada
   addFigure: function (resource) {
     try {
-      if (!resource) throw 'resource not defined';
+      if (!resource) throw "resource not defined";
 
       this.setId(resource.id, resource);
       this._scene.add(resource.figure);
@@ -57,7 +59,7 @@ export const WebGl = ({ renderer, scene, element, camera, orbit }) => ({
     let font = await loadFont(
       fontUrl
         ? fontUrl
-        : 'https://threejsfundamentals.org/threejs/resources/threejs/fonts/helvetiker_regular.typeface.json'
+        : "https://threejsfundamentals.org/threejs/resources/threejs/fonts/helvetiker_regular.typeface.json"
     );
 
     figure = new THREE.TextGeometry(text, { ...params, font });
@@ -75,7 +77,7 @@ export const WebGl = ({ renderer, scene, element, camera, orbit }) => ({
     for (let index in position) figure.position[index] = position[index];
 
     this.numberFigures += 1;
-    return Figure({ id: this.numberFigures, name: 'TextGeometry', figure });
+    return Figure({ id: this.numberFigures, name: "TextGeometry", figure });
   },
 
   // funcion que te permite crear un figura geometrica
@@ -95,6 +97,20 @@ export const WebGl = ({ renderer, scene, element, camera, orbit }) => ({
     } catch (error) {
       throw new Error(error);
     }
+  },
+
+  loadFigure: function (params) {
+    let figure = null;
+    this.numberFigures += 1;
+
+    figure = Figure({
+      id: this.numberFigures,
+      setId: (id, resource) => this.setId(id, resource),
+    });
+
+    figure.load(parans);
+
+    return figure;
   },
 
   // renderizacion
